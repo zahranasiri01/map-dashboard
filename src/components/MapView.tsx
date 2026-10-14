@@ -24,7 +24,7 @@ interface MockEquipment {
 export default function MapView({ mockEquipment , selectedEquipmentId }: MockEquipment) {
   const mapElement = useRef<HTMLDivElement | null>(null);
   const popupRef = useRef<Overlay | null>(null);
-  const popupElementRef = useRef<HTMLDivElement | null>(null);
+  // const popupElementRef = useRef<HTMLDivElement | null>(null);
 
   const [selectedEquipment, setSelectedEquipment] =
     useState<Equipment | null>(null);
@@ -460,10 +460,14 @@ useEffect(() => {
   // Create Route Features
   // -----------------------------
 
-  const createRouteFeatures = (
-    coordinates: number[][],
-    equipmentId: number
-  ) => {
+ const createRouteFeatures = (
+  coordinates: number[][],
+  equipmentId: number
+): {
+  line: LineString;
+  origin: Feature<Point>;
+  destination: Feature<Point>;
+} => {
     const line = new LineString(coordinates);
 
     const origin = new Feature({
@@ -490,30 +494,31 @@ useEffect(() => {
   // -----------------------------
 
   const showRouteOnMap = ({
-    line,
-    origin,
-    destination,
-  }) => {
-    routeSourceRef.current.clear();
+  line,
+  origin,
+  destination,
+}: ReturnType<typeof createRouteFeatures>) => {
+  routeSourceRef.current.clear();
 
-    routeSourceRef.current.addFeature(
-      new Feature({
-        geometry: line,
-      })
-    );
+  routeSourceRef.current.addFeature(
+    new Feature({
+      geometry: line,
+    })
+  );
 
-    routeSourceRef.current.addFeature(origin);
-    routeSourceRef.current.addFeature(destination);
+  routeSourceRef.current.addFeature(origin);
+  routeSourceRef.current.addFeature(destination);
 
-    const extent =
-      routeSourceRef.current.getExtent();
+  const extent = routeSourceRef.current.getExtent();
 
+  if (extent) {
     mapRef.current?.getView().fit(extent, {
       padding: [80, 80, 80, 80],
       maxZoom: 14,
       duration: 800,
     });
-  };
+  }
+};
 
  return (
   <div className="space-y-4">
