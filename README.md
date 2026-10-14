@@ -1,75 +1,176 @@
-# React + TypeScript + Vite
+# Map Dashboard
 
-This template provides a minimal setup to get React working in Vite with HMR and some ESLint rules.
+A web-based equipment monitoring dashboard built with React, TypeScript, and OpenLayers.
 
-Currently, two official plugins are available:
+The application provides an interactive map for monitoring equipment locations, searching and filtering equipment, viewing equipment details, and displaying routes between origin, current location, and destination.
 
-- [@vitejs/plugin-react](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react) uses [Oxc](https://oxc.rs)
-- [@vitejs/plugin-react-swc](https://github.com/vitejs/vite-plugin-react/blob/main/packages/plugin-react-swc) uses [SWC](https://swc.rs/)
+## Screenshot
 
-## React Compiler
+![Map Dashboard](./public/map-dashboard.png)
 
-The React Compiler is not enabled on this template because of its impact on dev & build performances. To add it, see [this documentation](https://react.dev/learn/react-compiler/installation).
+## Features
 
-## Expanding the ESLint configuration
+- Interactive map powered by OpenLayers and OpenStreetMap
+- Display equipment locations on the map
+- Visual status indicators for active and inactive equipment
+- Equipment list with selectable equipment cards
+- Search equipment by name
+- Filter equipment by status
+- Synchronization between the equipment list and the map
+- Highlighting and animated pulse effect for the selected equipment
+- Equipment information popup on map marker click
+- Route visualization from origin to current location to destination
+- Route origin and destination markers
+- Automatic map centering and zooming when an equipment item is selected
+- Responsive dashboard layout
 
-If you are developing a production application, we recommend updating the configuration to enable type-aware lint rules:
+## Technologies
 
-```js
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
+- React
+- TypeScript
+- OpenLayers
+- OpenStreetMap
+- Vite
+- CSS
+- React Router
 
-      // Remove tseslint.configs.recommended and replace with this
-      tseslint.configs.recommendedTypeChecked,
-      // Alternatively, use this for stricter rules
-      tseslint.configs.strictTypeChecked,
-      // Optionally, add this for stylistic rules
-      tseslint.configs.stylisticTypeChecked,
+## Project Structure
 
-      // Other configs...
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
-
+```text
+src/
+├── components/
+│   ├── EquipmentItem.tsx
+│   ├── EquipmentList.tsx
+│   ├── MapView.tsx
+│   ├── SearchBox.tsx
+│   ├── StatusFilter.tsx
+│   └── index.ts
+│
+├── data/
+│   ├── mockEquipment.ts
+│   └── index.ts
+│
+├── pages/
+│   └── DashboardPage.tsx
+│
+├── services/
+│   └── index.ts
+│
+├── types/
+│   └── index.ts
+│
+├── App.tsx
+├── App.css
+├── index.css
+└── main.tsx
 ```
 
-You can also install [eslint-plugin-react-x](https://npmx.dev/package/eslint-plugin-react-x) and [eslint-plugin-react-dom](https://npmx.dev/package/eslint-plugin-react-dom) for React-specific lint rules:
+## Getting Started
 
-```js
-// eslint.config.js
-import reactX from 'eslint-plugin-react-x'
-import reactDom from 'eslint-plugin-react-dom'
+### Prerequisites
 
-export default defineConfig([
-  globalIgnores(['dist']),
-  {
-    files: ['**/*.{ts,tsx}'],
-    extends: [
-      // Other configs...
-      // Enable lint rules for React
-      reactX.configs['recommended-typescript'],
-      // Enable lint rules for React DOM
-      reactDom.configs.recommended,
-    ],
-    languageOptions: {
-      parserOptions: {
-        project: ['./tsconfig.node.json', './tsconfig.app.json'],
-        tsconfigRootDir: import.meta.dirname,
-      },
-      // other options...
-    },
-  },
-])
+Make sure you have Node.js and npm installed.
 
+### Installation
+
+Clone the repository:
+
+```bash
+git clone https://github.com/zahranasiri01/map-dashboard.git
 ```
+
+Navigate to the project directory:
+
+```bash
+cd map-dashboard
+```
+
+Install dependencies:
+
+```bash
+npm install
+```
+
+Start the development server:
+
+```bash
+npm run dev
+```
+
+Open the local development URL shown in the terminal.
+
+## How It Works
+
+The dashboard consists of two main areas:
+
+### Equipment List
+
+The equipment panel allows users to:
+
+- Search for equipment
+- Filter equipment by status
+- Select an equipment item
+- View basic equipment information
+
+Selecting an equipment item updates the map and moves the map view to its location.
+
+### Interactive Map
+
+The map displays equipment locations using OpenLayers.
+
+Equipment markers use different colors to represent their current status:
+
+- Green — Active
+- Red — Inactive
+
+The selected equipment receives an additional visual highlight and a short pulse animation to make its location easier to identify on the map.
+
+### Equipment Details
+
+Clicking an equipment marker opens a popup containing information about the selected equipment.
+
+The popup also provides access to the route report.
+
+### Route Visualization
+
+The route report displays a simple route consisting of:
+
+```text
+Origin → Current Location → Destination
+```
+
+The route is displayed directly on the map, together with separate origin and destination markers.
+
+## Data Model
+
+Equipment data is currently provided through mock data.
+
+Each equipment item contains information such as:
+
+- ID
+- Name
+- Type
+- Status
+- Origin
+- Destination
+- Current location
+- Distance traveled
+- Total distance
+
+The application structure allows the mock data layer to be replaced by a real API in the future.
+
+## Future Improvements
+
+Possible future improvements include:
+
+- Connecting the dashboard to a real backend API
+- Real-time equipment location updates
+- Real routing through a routing service
+- Authentication and user management
+- Advanced equipment filtering
+- Improved mobile responsiveness
+- Additional map layers and geographic analysis
+
+## Purpose
+
+This project was developed as a portfolio project to demonstrate practical experience with React, TypeScript, interactive maps, API-oriented application architecture, and component-based frontend development.
