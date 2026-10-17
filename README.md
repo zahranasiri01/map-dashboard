@@ -5,7 +5,7 @@ A web-based equipment monitoring dashboard built with React, TypeScript, and Ope
 The application provides an interactive map for monitoring equipment locations, searching and filtering equipment, viewing equipment details, and displaying routes between origin, current location, and destination.
 
 ## Live Demo
-[View Live Demo] map-dashboard-ecru.vercel.app
+[View Live Demo] ([map-dashboard-ecru.vercel.app](https://map-dashboard-ecru.vercel.app/))
 
 ## Screenshot
 
